@@ -67,7 +67,8 @@ function Post()
                 postid: postId,
             })
             await axios.put(`/posts/${postId}`, {
-                comments: count
+                data : 'comments',
+                number: count
             })
         } catch (err) {
             console.log(err)
@@ -79,7 +80,7 @@ function Post()
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
-                const res = await axios.get(`/comments`);
+                const res = await axios.get(`/comments/${postId}`);
                 setComments(res.data);
             }catch(err){
                 console.log(err);
@@ -169,7 +170,7 @@ function Post()
                         <div className="comment" key={comment.idcomments}>
                             <h3>{comment.username}</h3>
                             <p> {comment.comment}</p>
-                            <p> date posted:  {comment.date}</p>
+                            <p> date posted:  {comment.date.substring(0, 10)} {comment.date.substring(11, 19)}</p>
                             {currentUser != null && <div>
                             {currentUser.username === comment?.username && (
                             <button onClick={() => handleDeleteComment(comment.idcomments)} >Delete</button>

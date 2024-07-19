@@ -4,7 +4,7 @@ import controller from "../controllers/comments";
 const router = express.Router();
 
 /*Making api requests*/
-router.get("/", controller.getComments);
+router.get("/:id", controller.getComments);
 router.post("/", controller.addComment);
 router.delete("/:id", controller.deleteComment);
 

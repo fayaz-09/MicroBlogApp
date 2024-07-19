@@ -3,9 +3,9 @@ import { db } from "../db";
 import jwt from "jsonwebtoken"
 
 const getComments = (req: Request, res: Response) => {
-    const query = "SELECT `idcomments`, `comment`, comments.date, `username` FROM comments LEFT JOIN user ON comments.userid=user.id JOIN posts WHERE comments.postid = posts.idposts";
+    const query = "SELECT `idcomments`, `comment`, comments.date, `username` FROM comments JOIN user WHERE comments.userid=user.id AND comments.postid = ?";
 
-    db.query(query, (err,data) => {
+    db.query(query,[req.params.id], (err,data) => {
         if (err) return res.status(500).send(err);
 
         return res.status(200).json(data);
